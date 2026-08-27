@@ -66,7 +66,7 @@ export default function App() {
   const [defaultAddCategory, setDefaultAddCategory] = useState<Category>('food');
 
   // Theme
-  const [theme, setTheme] = useState<ThemeStyle>('crimson');
+  const [theme, setTheme] = useState<ThemeStyle>('white-black');
 
   // Order history
   const [orderHistory, setOrderHistory] = useState<BillReceipt[]>(() => {
@@ -274,21 +274,19 @@ export default function App() {
 
   const themeClasses = useMemo(() => {
     switch (theme) {
-      case 'crimson':
-        return 'bg-zinc-950 text-zinc-100';
-      case 'emerald':
-        return 'bg-zinc-950 text-zinc-100';
-      case 'amber':
-        return 'bg-zinc-950 text-zinc-100';
+      case 'white-black':
+        return 'bg-zinc-100 text-zinc-950 selection:bg-zinc-950 selection:text-white';
+      case 'black-white':
+        return 'bg-zinc-950 text-zinc-100 selection:bg-white selection:text-zinc-950';
       case 'slate':
-        return 'bg-slate-950 text-slate-100';
+        return 'bg-slate-900 text-slate-100 selection:bg-white selection:text-slate-950';
       default:
-        return 'bg-zinc-950 text-zinc-100';
+        return 'bg-zinc-100 text-zinc-950 selection:bg-zinc-950 selection:text-white';
     }
   }, [theme]);
 
   return (
-    <div className={`min-h-screen ${themeClasses} flex flex-col font-sans selection:bg-amber-400 selection:text-zinc-950`}>
+    <div className={`min-h-screen ${themeClasses} flex flex-col font-sans transition-colors duration-200`}>
       {/* Header Bar */}
       <Header
         orderType={orderType}
@@ -329,6 +327,7 @@ export default function App() {
             costOfFood={costOfFood}
             costOfDrinks={costOfDrinks}
             costOfCakes={costOfCakes}
+            theme={theme}
           />
         </section>
 
@@ -348,6 +347,7 @@ export default function App() {
             tipAmount={tipAmount}
             setTipAmount={setTipAmount}
             hasItems={orderItems.length > 0}
+            theme={theme}
           />
         </section>
       </main>

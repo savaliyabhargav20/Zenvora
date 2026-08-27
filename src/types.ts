@@ -50,4 +50,4 @@ export interface BillReceipt {
   notes?: string;
 }
 
-export type ThemeStyle = 'crimson' | 'emerald' | 'amber' | 'slate';
+export type ThemeStyle = 'white-black' | 'black-white' | 'slate';

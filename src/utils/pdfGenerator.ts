@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf';
 import { BillReceipt } from '../types';
 
-export function createBillPDFDoc(bill: BillReceipt, restaurantName = 'ROYAL DINER & CAFE'): jsPDF {
+export function createBillPDFDoc(bill: BillReceipt, restaurantName = 'ZENVORA'): jsPDF {
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'mm',
@@ -156,12 +156,12 @@ export function createBillPDFDoc(bill: BillReceipt, restaurantName = 'ROYAL DINE
   return doc;
 }
 
-export function generateBillPDF(bill: BillReceipt, restaurantName = 'ROYAL DINER & CAFE'): void {
+export function generateBillPDF(bill: BillReceipt, restaurantName = 'ZENVORA'): void {
   const doc = createBillPDFDoc(bill, restaurantName);
   doc.save(`${bill.billNumber}_receipt.pdf`);
 }
 
-export function getBillPDFBlob(bill: BillReceipt, restaurantName = 'ROYAL DINER & CAFE'): Blob {
+export function getBillPDFBlob(bill: BillReceipt, restaurantName = 'ZENVORA'): Blob {
   const doc = createBillPDFDoc(bill, restaurantName);
   return doc.output('blob');
 }
@@ -185,7 +185,7 @@ export async function sendBillPDFToMobile(
     .map((i) => `• ${i.item.name} x${i.quantity} = ₹${i.quantity * i.item.price}`)
     .join('\n');
 
-  const message = `🍽️ *ROYAL DINER & CAFE - OFFICIAL PDF BILL RECEIPT*
+  const message = `🍽️ *ZENVORA - OFFICIAL PDF BILL RECEIPT*
 ━━━━━━━━━━━━━━━━━━━━
 📄 *Invoice Ref:* ${bill.billNumber}
 📅 *Date & Time:* ${bill.date} ${bill.time}
@@ -201,7 +201,7 @@ ${bill.tipAmount > 0 ? `*Tip / Gratuity:* ₹${bill.tipAmount.toFixed(2)}\n` : '
 💳 *Payment:* ${bill.paymentMethod.toUpperCase()} (${bill.paymentStatus.toUpperCase()})
 ━━━━━━━━━━━━━━━━━━━━
 ✅ *Your official PDF receipt "${bill.billNumber}_receipt.pdf" is ready and downloaded!*
-Thank you for dining with us! 🙏`;
+Thank you for dining with us at Zenvora! 🙏`;
 
   // 4. Check Web Share API with PDF file support if available
   const pdfBlob = getBillPDFBlob(bill);
@@ -249,14 +249,14 @@ export async function sendBillPDFToEmail(
   generateBillPDF(bill);
 
   // 2. Prepare structured email details
-  const subject = `Tax Invoice & Bill Receipt #${bill.billNumber} - ROYAL DINER & CAFE`;
+  const subject = `Tax Invoice & Bill Receipt #${bill.billNumber} - ZENVORA`;
   const itemsText = bill.items
     .map((i) => `• ${i.item.name} x${i.quantity} = ₹${(i.quantity * i.item.price).toFixed(2)}`)
     .join('\n');
 
   const bodyText = `Dear ${bill.customer.name || 'Valued Customer'},
 
-Thank you for dining at ROYAL DINER & CAFE!
+Thank you for dining at ZENVORA!
 Your official digital bill receipt has been generated in PDF format (${bill.billNumber}_receipt.pdf).
 
 INVOICE SUMMARY:
@@ -280,7 +280,7 @@ Your official PDF invoice "${bill.billNumber}_receipt.pdf" is ready for your rec
 We look forward to serving you again soon!
 
 Warm regards,
-ROYAL DINER & CAFE
+ZENVORA
 GSTIN: 27AABCR1234F1Z8 | Contact: +91 98765 43210`;
 
   // 3. Check Web Share API with PDF file support

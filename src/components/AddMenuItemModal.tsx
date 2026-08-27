@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { X, PlusCircle, Sparkles } from 'lucide-react';
+import { X, PlusCircle } from 'lucide-react';
 import { Category, MenuItem } from '../types';
-import { sound } from '../utils/audio';
 
 interface AddMenuItemModalProps {
   isOpen: boolean;
@@ -36,11 +35,10 @@ export const AddMenuItemModal: React.FC<AddMenuItemModalProps> = ({
       category,
       price: parsedPrice,
       icon: icon.trim() || '🍽️',
-      description: description.trim() || 'Custom delicious special',
+      description: description.trim() || 'Custom special menu item',
       isVeg,
     };
 
-    sound.playCashRegister();
     onAddItem(newItem);
     setName('');
     setPrice('');
@@ -51,25 +49,25 @@ export const AddMenuItemModal: React.FC<AddMenuItemModalProps> = ({
   const quickIcons = ['🍲', '🥘', '🍕', '🍜', '☕', '🍹', '🍧', '🍰', '🎂', '🧁', '🍪', '🍨', '🥐', '🥗'];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-      <div className="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden text-zinc-100 flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
+      <div className="bg-white border border-zinc-300 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden text-zinc-950 flex flex-col">
         {/* Header */}
-        <div className="bg-zinc-950/90 p-4 border-b border-zinc-800 flex items-center justify-between">
+        <div className="bg-zinc-50 p-4 border-b border-zinc-200 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-amber-400 text-zinc-950 font-black shadow-md shadow-amber-400/20">
+            <div className="p-2 rounded-xl bg-black text-white font-black shadow-xs">
               <PlusCircle className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-serif font-black text-lg text-zinc-100">
-                ADD NEW MENU ITEM
+              <h3 className="font-sans font-black text-base tracking-wide text-zinc-950 uppercase">
+                Add New Menu Item
               </h3>
-              <p className="text-xs text-zinc-400">Expand Food, Drinks or Cake menu</p>
+              <p className="text-xs text-zinc-500">Create a new item in Food, Drinks, or Cakes</p>
             </div>
           </div>
           <button
             id="btn-close-add-modal"
             onClick={onClose}
-            className="p-1.5 rounded-xl bg-zinc-800/80 hover:bg-zinc-750 text-zinc-400 hover:text-white transition"
+            className="p-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-600 hover:text-black transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -78,40 +76,40 @@ export const AddMenuItemModal: React.FC<AddMenuItemModalProps> = ({
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
-            <label className="block text-xs font-bold text-amber-400 uppercase tracking-wide mb-1">
-              Item Name <span className="text-rose-400">*</span>
+            <label className="block text-xs font-bold text-zinc-900 uppercase tracking-wide mb-1">
+              Item Name <span className="text-zinc-500">*</span>
             </label>
             <input
               id="input-new-item-name"
               type="text"
               required
-              placeholder="e.g. Garlic Naan, Mojito, Tiramisu"
+              placeholder="e.g. Butter Naan, Cold Brew, Chocolate Lava"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-700/80 rounded-xl px-3 py-2 text-sm text-amber-300 font-bold focus:outline-none focus:ring-1 focus:ring-amber-400"
+              className="w-full bg-white border border-zinc-300 rounded-xl px-3 py-2 text-sm text-zinc-950 font-bold focus:outline-none focus:ring-1 focus:ring-black placeholder-zinc-400"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wide mb-1">
+              <label className="block text-xs font-bold text-zinc-900 uppercase tracking-wide mb-1">
                 Category
               </label>
               <select
                 id="select-new-item-cat"
                 value={category}
                 onChange={(e) => setCategory(e.target.value as Category)}
-                className="w-full bg-zinc-950 border border-zinc-700/80 rounded-xl px-3 py-2 text-xs font-bold text-zinc-200 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                className="w-full bg-white border border-zinc-300 rounded-xl px-3 py-2 text-xs font-bold text-zinc-950 focus:outline-none focus:ring-1 focus:ring-black"
               >
-                <option value="food">🍲 Food</option>
-                <option value="drinks">🍹 Drinks</option>
-                <option value="cakes">🎂 Cakes &amp; Desserts</option>
+                <option value="food">Food</option>
+                <option value="drinks">Drinks</option>
+                <option value="cakes">Cakes &amp; Desserts</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-amber-400 uppercase tracking-wide mb-1">
-                Price (₹) <span className="text-rose-400">*</span>
+              <label className="block text-xs font-bold text-zinc-900 uppercase tracking-wide mb-1">
+                Price (₹) <span className="text-zinc-500">*</span>
               </label>
               <input
                 id="input-new-item-price"
@@ -122,24 +120,26 @@ export const AddMenuItemModal: React.FC<AddMenuItemModalProps> = ({
                 placeholder="150"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="w-full bg-zinc-950 border border-zinc-700/80 rounded-xl px-3 py-2 text-sm font-mono font-bold text-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                className="w-full bg-white border border-zinc-300 rounded-xl px-3 py-2 text-sm font-mono font-bold text-zinc-950 focus:outline-none focus:ring-1 focus:ring-black"
               />
             </div>
           </div>
 
           {/* Quick Icon Selector */}
           <div>
-            <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wide mb-1">
+            <label className="block text-xs font-bold text-zinc-900 uppercase tracking-wide mb-1">
               Select Emoji Icon
             </label>
-            <div className="flex flex-wrap gap-1.5 bg-zinc-950 p-2.5 rounded-xl border border-zinc-800">
+            <div className="flex flex-wrap gap-1.5 bg-zinc-50 p-2.5 rounded-xl border border-zinc-200">
               {quickIcons.map((ic) => (
                 <button
                   type="button"
                   key={ic}
                   onClick={() => setIcon(ic)}
-                  className={`w-8 h-8 rounded-xl text-lg flex items-center justify-center transition ${
-                    icon === ic ? 'bg-amber-400/20 border border-amber-400 scale-110 shadow-xs' : 'hover:bg-zinc-800'
+                  className={`w-8 h-8 rounded-xl text-lg flex items-center justify-center transition border ${
+                    icon === ic 
+                      ? 'bg-black text-white border-black scale-105 shadow-xs' 
+                      : 'bg-white border-zinc-200 hover:bg-zinc-100'
                   }`}
                 >
                   {ic}
@@ -149,16 +149,16 @@ export const AddMenuItemModal: React.FC<AddMenuItemModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wide mb-1">
+            <label className="block text-xs font-bold text-zinc-900 uppercase tracking-wide mb-1">
               Description (Optional)
             </label>
             <input
               id="input-new-item-desc"
               type="text"
-              placeholder="Short delicious description"
+              placeholder="Short description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-700/80 rounded-xl px-3 py-1.5 text-xs text-zinc-300 focus:outline-none focus:ring-1 focus:ring-amber-400"
+              className="w-full bg-white border border-zinc-300 rounded-xl px-3 py-1.5 text-xs text-zinc-900 focus:outline-none focus:ring-1 focus:ring-black placeholder-zinc-400"
             />
           </div>
 
@@ -169,17 +169,17 @@ export const AddMenuItemModal: React.FC<AddMenuItemModalProps> = ({
               type="checkbox"
               checked={isVeg}
               onChange={(e) => setIsVeg(e.target.checked)}
-              className="w-4 h-4 rounded text-emerald-500 bg-zinc-950 border-zinc-700 focus:ring-0"
+              className="w-4 h-4 rounded text-black bg-white border-zinc-400 focus:ring-0 accent-black"
             />
-            <label htmlFor="check-is-veg" className="text-xs font-bold text-zinc-200 cursor-pointer">
-              Mark as Vegetarian (Green mark)
+            <label htmlFor="check-is-veg" className="text-xs font-bold text-zinc-800 cursor-pointer">
+              Vegetarian Item
             </label>
           </div>
 
           <button
             id="btn-confirm-add-item"
             type="submit"
-            className="w-full py-2.5 bg-amber-400 hover:bg-amber-300 text-zinc-950 font-black text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-amber-400/20 transition transform active:scale-95 flex items-center justify-center gap-1.5"
+            className="w-full py-2.5 bg-black hover:bg-zinc-800 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-xs transition transform active:scale-95 flex items-center justify-center gap-1.5"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Add Item to Menu</span>

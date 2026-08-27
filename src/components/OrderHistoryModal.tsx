@@ -4,17 +4,12 @@ import {
   History, 
   Search, 
   Download, 
-  Printer, 
   Trash2, 
-  TrendingUp, 
-  DollarSign, 
-  ShoppingBag,
   FileSpreadsheet,
   Eye
 } from 'lucide-react';
 import { BillReceipt } from '../types';
 import { generateBillPDF } from '../utils/pdfGenerator';
-import { sound } from '../utils/audio';
 
 interface OrderHistoryModalProps {
   isOpen: boolean;
@@ -50,7 +45,6 @@ export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({
   });
 
   const exportToCSV = () => {
-    sound.playClick();
     if (history.length === 0) return;
 
     const headers = ['Bill Number', 'Date', 'Time', 'Order Type', 'Customer', 'Table', 'Items Count', 'Subtotal', 'Tax', 'Discount', 'Tip', 'Total', 'Payment Method', 'Status'];
@@ -82,63 +76,63 @@ export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-      <div className="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden text-zinc-100 flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
+      <div className="bg-white border border-zinc-300 rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden text-zinc-950 flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="bg-zinc-950/90 p-4 border-b border-zinc-800 flex items-center justify-between">
+        <div className="bg-zinc-50 p-4 border-b border-zinc-200 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-amber-400 text-zinc-950 font-black shadow-md shadow-amber-400/20">
+            <div className="p-2 rounded-xl bg-black text-white font-black shadow-xs">
               <History className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-serif font-black text-lg text-zinc-100 tracking-wide">
-                SALES REGISTER &amp; ORDER HISTORY
+              <h3 className="font-sans font-black text-base text-zinc-950 uppercase tracking-wide">
+                Sales Register &amp; Order History
               </h3>
-              <p className="text-xs text-zinc-400">Past Invoices, Revenue Analytics &amp; CSV Export</p>
+              <p className="text-xs text-zinc-500">Past Invoices, Analytics &amp; CSV Export</p>
             </div>
           </div>
           <button
             id="btn-close-history-modal"
             onClick={onClose}
-            className="p-1.5 rounded-xl bg-zinc-800/80 hover:bg-zinc-750 text-zinc-400 hover:text-white transition"
+            className="p-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-600 hover:text-black transition"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Stats Row with Bento Cards */}
-        <div className="p-4 bg-zinc-950/90 border-b border-zinc-800 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="bg-zinc-900/90 p-3 rounded-xl border border-zinc-800 shadow-xs">
-            <span className="text-[11px] text-zinc-400 font-bold block">Total Revenue</span>
-            <span className="text-lg font-black text-amber-400 font-mono">
+        {/* Stats Row */}
+        <div className="p-4 bg-zinc-50 border-b border-zinc-200 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
+            <span className="text-[11px] text-zinc-500 font-bold block">Total Revenue</span>
+            <span className="text-lg font-black text-zinc-950 font-mono">
               ₹{totalRevenue.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </span>
           </div>
 
-          <div className="bg-zinc-900/90 p-3 rounded-xl border border-zinc-800 shadow-xs">
-            <span className="text-[11px] text-zinc-400 font-bold block">Total Orders</span>
-            <span className="text-lg font-black text-zinc-100 font-mono">
+          <div className="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
+            <span className="text-[11px] text-zinc-500 font-bold block">Total Orders</span>
+            <span className="text-lg font-black text-zinc-950 font-mono">
               {history.length}
             </span>
           </div>
 
-          <div className="bg-zinc-900/90 p-3 rounded-xl border border-zinc-800 shadow-xs">
-            <span className="text-[11px] text-zinc-400 font-bold block">Items Sold</span>
-            <span className="text-lg font-black text-emerald-400 font-mono">
+          <div className="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
+            <span className="text-[11px] text-zinc-500 font-bold block">Items Sold</span>
+            <span className="text-lg font-black text-zinc-950 font-mono">
               {totalItemsSold}
             </span>
           </div>
 
-          <div className="bg-zinc-900/90 p-3 rounded-xl border border-zinc-800 shadow-xs">
-            <span className="text-[11px] text-zinc-400 font-bold block">Avg Ticket Size</span>
-            <span className="text-lg font-black text-sky-400 font-mono">
+          <div className="bg-white p-3 rounded-xl border border-zinc-200 shadow-xs">
+            <span className="text-[11px] text-zinc-500 font-bold block">Avg Ticket Size</span>
+            <span className="text-lg font-black text-zinc-950 font-mono">
               ₹{avgOrderValue.toFixed(2)}
             </span>
           </div>
         </div>
 
         {/* Controls Bar */}
-        <div className="p-4 border-b border-zinc-800 flex flex-wrap items-center justify-between gap-3 bg-zinc-900/50">
+        <div className="p-4 border-b border-zinc-200 flex flex-wrap items-center justify-between gap-3 bg-white">
           <div className="relative flex-1 min-w-[220px]">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
             <input
@@ -147,7 +141,7 @@ export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({
               placeholder="Search by Bill #, Table, Guest name..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-700/80 rounded-xl pl-9 pr-3 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-amber-400"
+              className="w-full bg-white border border-zinc-300 rounded-xl pl-9 pr-3 py-1.5 text-xs text-zinc-950 placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
 
@@ -156,7 +150,7 @@ export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({
               id="btn-export-csv"
               onClick={exportToCSV}
               disabled={history.length === 0}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs rounded-xl shadow transition"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-black hover:bg-zinc-800 disabled:opacity-40 text-white font-bold text-xs rounded-xl shadow-xs transition"
             >
               <FileSpreadsheet className="w-4 h-4" />
               <span>Export CSV</span>
@@ -170,7 +164,7 @@ export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({
                     onClearHistory();
                   }
                 }}
-                className="flex items-center gap-1 px-3 py-1.5 bg-rose-950/70 hover:bg-rose-900 border border-rose-800 text-rose-300 text-xs rounded-xl transition"
+                className="flex items-center gap-1 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-zinc-700 text-xs font-semibold rounded-xl transition"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>Clear</span>
@@ -189,7 +183,7 @@ export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-zinc-800 text-zinc-400 uppercase text-[10px] font-bold">
+                  <tr className="border-b border-zinc-200 text-zinc-500 uppercase text-[10px] font-bold">
                     <th className="py-2.5 px-3">Bill Ref</th>
                     <th className="py-2.5 px-3">Date / Time</th>
                     <th className="py-2.5 px-3">Guest / Table</th>
@@ -199,32 +193,32 @@ export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({
                     <th className="py-2.5 px-3 text-center">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800/60 font-medium">
+                <tbody className="divide-y divide-zinc-200 font-medium">
                   {filteredHistory.map((bill) => (
-                    <tr key={bill.id} className="hover:bg-zinc-800/40 transition-colors">
-                      <td className="py-2.5 px-3 font-mono font-bold text-amber-400">
+                    <tr key={bill.id} className="hover:bg-zinc-50 transition-colors">
+                      <td className="py-2.5 px-3 font-mono font-bold text-zinc-950">
                         {bill.billNumber}
                       </td>
-                      <td className="py-2.5 px-3 text-zinc-300">
+                      <td className="py-2.5 px-3 text-zinc-700">
                         {bill.date} <span className="text-zinc-500">{bill.time}</span>
                       </td>
                       <td className="py-2.5 px-3">
-                        <span className="text-zinc-200">{bill.customer.name || 'Walk-in'}</span>
+                        <span className="text-zinc-900 font-semibold">{bill.customer.name || 'Walk-in'}</span>
                         {bill.customer.tableNumber && (
-                          <span className="ml-1 text-[10px] px-1.5 py-0.5 rounded-md bg-zinc-800 text-amber-400 font-mono">
+                          <span className="ml-1 text-[10px] px-1.5 py-0.5 rounded-md bg-zinc-100 text-zinc-900 font-mono border border-zinc-200">
                             {bill.customer.tableNumber}
                           </span>
                         )}
                       </td>
-                      <td className="py-2.5 px-3 text-zinc-400">
+                      <td className="py-2.5 px-3 text-zinc-600">
                         {bill.items.reduce((s, i) => s + i.quantity, 0)} items
                       </td>
                       <td className="py-2.5 px-3">
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-zinc-800 text-amber-300 border border-zinc-700">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-zinc-100 text-zinc-900 border border-zinc-300">
                           {bill.paymentMethod}
                         </span>
                       </td>
-                      <td className="py-2.5 px-3 text-right font-mono font-bold text-amber-400 text-sm">
+                      <td className="py-2.5 px-3 text-right font-mono font-bold text-zinc-950 text-sm">
                         ₹{bill.total.toFixed(2)}
                       </td>
                       <td className="py-2.5 px-3 text-center">
@@ -233,7 +227,7 @@ export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({
                             id={`btn-view-${bill.id}`}
                             onClick={() => { onViewReceipt(bill); onClose(); }}
                             title="View & Load in Preview"
-                            className="p-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 transition"
+                            className="p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 transition border border-zinc-200"
                           >
                             <Eye className="w-3.5 h-3.5" />
                           </button>
@@ -241,7 +235,7 @@ export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({
                             id={`btn-pdf-${bill.id}`}
                             onClick={() => generateBillPDF(bill)}
                             title="Download PDF"
-                            className="p-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-amber-400 transition"
+                            className="p-1.5 rounded-lg bg-black hover:bg-zinc-800 text-white transition shadow-xs"
                           >
                             <Download className="w-3.5 h-3.5" />
                           </button>

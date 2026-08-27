@@ -1,6 +1,6 @@
 {
-  "name": "Restaurant POS & Billing Suite",
-  "description": "Comprehensive cafe and restaurant billing system featuring real-time menu ordering, tax & discount management, PDF receipt generation, email sharing, and sales analytics.",
+  "name": "Zenvora",
+  "description": "Zenvora - Comprehensive cafe and restaurant billing system featuring real-time menu ordering, tax & discount management, PDF receipt generation, email sharing, and sales analytics.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
